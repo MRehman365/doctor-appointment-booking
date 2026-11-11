@@ -26,7 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-async function DoctorDetail({ slug }: { slug: string }) {
+async function DoctorDetail({ params }: Props) {
+  const { slug } = await params;
   let data;
   try {
     data = await fetchDoctor(slug);
@@ -123,8 +124,7 @@ async function DoctorDetail({ slug }: { slug: string }) {
   );
 }
 
-export default async function DoctorPage({ params }: Props) {
-  const { slug } = await params;
+export default function DoctorPage({ params }: Props) {
   return (
     <Suspense
       fallback={
@@ -133,7 +133,7 @@ export default async function DoctorPage({ params }: Props) {
         </Section>
       }
     >
-      <DoctorDetail slug={slug} />
+      <DoctorDetail params={params} />
     </Suspense>
   );
 }

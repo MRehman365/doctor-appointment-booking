@@ -12,9 +12,12 @@ type Props = {
   searchParams: Promise<{ reference?: string }>;
 };
 
-export default async function BookingSuccessPage({ searchParams }: Props) {
+async function SuccessBody({ searchParams }: Props) {
   const { reference } = await searchParams;
+  return <BookingSuccessClient reference={reference || ""} />;
+}
 
+export default function BookingSuccessPage({ searchParams }: Props) {
   return (
     <Section>
       <Suspense
@@ -24,7 +27,7 @@ export default async function BookingSuccessPage({ searchParams }: Props) {
           </div>
         }
       >
-        <BookingSuccessClient reference={reference || ""} />
+        <SuccessBody searchParams={searchParams} />
       </Suspense>
     </Section>
   );

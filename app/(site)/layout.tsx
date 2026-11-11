@@ -20,7 +20,11 @@ export default function SiteLayout({
 }>) {
   return (
     <>
-      <SiteHeader />
+      <Suspense
+        fallback={<div className="sticky top-0 z-50 h-16 border-b border-border bg-white" />}
+      >
+        <SiteHeader />
+      </Suspense>
       <main className="flex-1">{children}</main>
       <SupportWidget />
       <Suspense fallback={<SiteFooter />}>

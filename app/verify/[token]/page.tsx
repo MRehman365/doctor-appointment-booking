@@ -13,7 +13,8 @@ export const metadata: Metadata = {
   description: "Public verification for Medical Complex appointments",
 };
 
-async function VerifyBody({ token }: { token: string }) {
+async function VerifyBody({ params }: Props) {
+  const { token } = await params;
   let data;
   try {
     data = await fetchVerification(token);
@@ -84,8 +85,7 @@ function Row({ label, value }: { label: string; value: string }) {
   );
 }
 
-export default async function VerifyPage({ params }: Props) {
-  const { token } = await params;
+export default function VerifyPage({ params }: Props) {
   return (
     <Suspense
       fallback={
@@ -94,7 +94,7 @@ export default async function VerifyPage({ params }: Props) {
         </div>
       }
     >
-      <VerifyBody token={token} />
+      <VerifyBody params={params} />
     </Suspense>
   );
 }

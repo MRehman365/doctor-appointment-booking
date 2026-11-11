@@ -18,19 +18,8 @@ type Props = {
   }>;
 };
 
-async function BookContent({
-  doctor,
-  service,
-  name,
-  email,
-  date,
-}: {
-  doctor?: string;
-  service?: string;
-  name?: string;
-  email?: string;
-  date?: string;
-}) {
+async function BookContent({ searchParams }: Props) {
+  const { doctor, service, name, email, date } = await searchParams;
   const doctors = await getHomeDoctors().catch(() => []);
 
   return (
@@ -58,8 +47,7 @@ async function BookContent({
   );
 }
 
-export default async function BookPage({ searchParams }: Props) {
-  const params = await searchParams;
+export default function BookPage({ searchParams }: Props) {
   return (
     <Suspense
       fallback={
@@ -70,13 +58,7 @@ export default async function BookPage({ searchParams }: Props) {
         </section>
       }
     >
-      <BookContent
-        doctor={params.doctor}
-        service={params.service}
-        name={params.name}
-        email={params.email}
-        date={params.date}
-      />
+      <BookContent searchParams={searchParams} />
     </Suspense>
   );
 }

@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   description: "Medical Complex appointment receipt",
 };
 
-async function ReceiptBody({ token }: { token: string }) {
+async function ReceiptBody({ params }: Props) {
+  const { token } = await params;
   let data;
   try {
     data = await fetchReceipt(token);
@@ -26,8 +27,7 @@ async function ReceiptBody({ token }: { token: string }) {
   );
 }
 
-export default async function ReceiptPage({ params }: Props) {
-  const { token } = await params;
+export default function ReceiptPage({ params }: Props) {
   return (
     <Suspense
       fallback={
@@ -36,7 +36,7 @@ export default async function ReceiptPage({ params }: Props) {
         </div>
       }
     >
-      <ReceiptBody token={token} />
+      <ReceiptBody params={params} />
     </Suspense>
   );
 }
