@@ -20,6 +20,9 @@
 # production
 /build
 
+# local image uploads (dev fallback when Cloudinary is not configured)
+/public/uploads
+
 # misc
 .DS_Store
 *.pem
